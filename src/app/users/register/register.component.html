@@ -1,0 +1,13 @@
+<main class="form-signin">
+    <form
+    [formGroup]="loginForm"
+    (ngSubmit)="submit()"
+    >
+      <h1 class="h3 mb-3 fw-normal">Please Register</h1>
+        <input formControlName="email" type="email" class="form-control" placeholder="Email address please">
+        <input formControlName="phone"  class="form-control" placeholder="Mobile Number please">
+        <input formControlName="name" class="form-control" placeholder="Your name ?">
+        <input formControlName="password" type="password" class="form-control" placeholder="Password">
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+    </form>
+  </main>
