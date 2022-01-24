@@ -59,14 +59,12 @@ export class FilesComponent implements OnInit {
       }
       
     );
-    console.log("hehehehehe");
     this.getFiles();
     console.log
   }
 
 
   uploadforImageOcrForm(event : any){
-    console.log("I hit !!!");
     console.log(this.submitfilefoImageOcrForm);
     console.log(event);
     const userFile = (event.target as HTMLInputElement).files![0];
