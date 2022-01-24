@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilesComponent } from './files/files.component';
 import { FilesRoutingModule } from './users-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +12,9 @@ import { FilesRoutingModule } from './users-routing.module';
   ],
   imports: [
     CommonModule,
-    FilesRoutingModule
+    FilesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserfilesModule { }

@@ -1,24 +1,24 @@
 import { Injectable } from "@angular/core";
-import { Userfile , convertedFile} from "./models";
 import { HttpClient} from '@angular/common/http';
 import { Observable } from "rxjs";
+import { config } from "../config";
+
+
 @Injectable({
     providedIn:'root'
 })
 
 export class FileService{
-    private apiServiceGetResultLink = 'http://localhost:8000/userfiles/results';
-    private apiServiceRequestResultLink = 'http://127.0.0.1:8000/file/upload/image-only';
     constructor(private http: HttpClient){}
 
     readResult():Observable<any[]>{
         return this.http.get<any[]>(
-            this.apiServiceGetResultLink
+            `${config.apiUrl}/userfiles/results`
         )
     }
 
-    requestResult(userfile: FormData):Observable<any[]>{
-        const anyRequest =  this.http.post<any[]>(this.apiServiceRequestResultLink , userfile);
+    requestResultForImage(userfile: FormData):Observable<any[]>{
+        const anyRequest =  this.http.post<any[]>(`${config.apiUrl}/userfiles/upload/image-only` , userfile);
         console.log(anyRequest+"------->");
         return anyRequest;
     }

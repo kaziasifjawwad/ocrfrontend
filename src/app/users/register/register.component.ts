@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit , OnDestroy} from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/usermodels';
-import { OcrApiServce } from '../services/ocrservice';
+import { OcrApiServce } from '../services/ocrRegisterService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 

@@ -6,5 +6,6 @@ export interface convertedFile{
     name:string;
     id: number;
     file:File;
-    result:string
+    result:string;
+    type:string
 }

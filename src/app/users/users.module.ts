@@ -6,12 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { UserRoutingModule } from './register/registration-routing.module';
+import { UserRoutingModule } from './registration-routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
-import { RandomGuard } from './guards/random.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
+import { UserFilesGuard } from './guards/userfiles.guard';
 
 @NgModule({
 
@@ -19,7 +19,7 @@ import { TokenInterceptor } from './token.interceptor';
   providers: [
     AuthGuard,
     AuthService,
-    RandomGuard,
+    UserFilesGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

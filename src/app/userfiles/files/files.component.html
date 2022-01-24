@@ -1,1 +1,119 @@
-<p>files works!</p>
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="content">
+            <h2 class="text-center rounded" style="background-color: black; color: white">Bangla OCR</h2>
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+
+
+                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr()">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+
+                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+
+                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="content">
+            <h2 class="text-center rounded" style="background-color: black; color: white">Bangla OCR</h2>
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+
+                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+
+                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<hr>
+<h1 class="d-flex justify-content-center" style="background-color: darkgrey">Results</h1>
+<hr>
+
+
+
+<div class="row">
+    <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let file of convertedFileList">
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="d-flex justify-content-between card-header">{{file.name}}<small
+                    class="btn-warning text-center rounded"> {{file.type}} </small> </div>
+            <div class="card-body">
+                <h5 class="card-title">
+
+                    <button type="button" class="btn btn-dark" style="border-color: white;" data-toggle="modal"
+                        [attr.data-target]="'#' + file.id">
+                        Result
+                    </button>
+                    <a href="" class="btn btn-success">File</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+
+                    <div class="modal fade" [attr.id]="file.id" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content text-white bg-dark">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+                                </div>
+                                <div class="modal-body">
+                                    {{file.result}}
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="" class="btn btn-primary">Download as docs file</a>
+                                    <a href="" class="btn btn-primary">Download as txt file</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h5>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -32,7 +32,7 @@ export class AuthService {
 
   logout() {
     return this.http.post<any>(`${config.apiUrl}/logout`, {
-      'refreshToken': this.getRefreshToken()
+      'refresh': this.getRefreshToken()
     }).pipe(
       tap(() => this.doLogoutUser()),
       mapTo(true),
@@ -47,8 +47,8 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http.post<any>(`${config.apiUrl}/refresh`, {
-      'refreshToken': this.getRefreshToken()
+    return this.http.post<any>(`${config.apiUrl}/users/api/token/refresh/`, {
+      'refresh': this.getRefreshToken()
     }).pipe(tap((tokens: Tokens) => {
       this.storeJwtToken(tokens.access);
     }));

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserCredintical } from '../models/usermodels';
-import { OcrApiServce } from 'src/app/users/services/ocrservice';
+import { OcrApiServce } from 'src/app/users/services/ocrRegisterService';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';

@@ -3,13 +3,14 @@ import { FileService } from '../files.service';
 import { convertedFile,Userfile } from '../models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-files',
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.css']
 })
 export class FilesComponent implements OnInit {
-  submittedfile!: FormGroup;
+  submitfilefoImageOcrForm!: FormGroup;
   userfile !: Userfile;
   fileUploadService!: FileService;
   public convertedFileList: convertedFile[] = [];
@@ -18,8 +19,7 @@ export class FilesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("here is a good boy ");
-    this.submittedfile = this.fb.group(
+    this.submitfilefoImageOcrForm = this.fb.group(
       {
         file:[null , Validators.required]
       }
@@ -41,34 +41,21 @@ export class FilesComponent implements OnInit {
   }
 
 
-  submitfile(): void {
-    // console.log("submit a file");
-    // for (const i in this.submittedfile.controls) {
-    //   if (this.submittedfile.controls.hasOwnProperty(i)) {
-    //     this.submittedfile.controls[i].markAsDirty();
-    //     this.submittedfile.controls[i].updateValueAndValidity();
-    //   }
-    //   this.userfile = this.submittedfile.value;
-    //   this.fileservice.requestResult(this.userfile);
-    // }
-
+  submitfilefoImageOcr(): void {
     const formData : any = new FormData();
     formData.append(
-      'file' , this.submittedfile.get('file')?.value
+      'file' , this.submitfilefoImageOcrForm.get('file')?.value
     );
     formData.append("temp",45);
     console.log(formData);
-    this.fileservice.requestResult(formData).
+    this.fileservice.requestResultForImage(formData).
     subscribe(
       res => {
         console.log(res)
         if(res){
           // console.log("gfsdfljdsflsdjflsd");
-          // this.getFiles();
+          this.getFiles();
         }
-        console.log("fsdlfdsjlkfd");
-      },err=>{
-        this.getFiles();
       }
       
     );
@@ -78,16 +65,16 @@ export class FilesComponent implements OnInit {
   }
 
 
-  uploadFile(event : any){
+  uploadforImageOcrForm(event : any){
     console.log("I hit !!!");
-    console.log(this.submittedfile);
+    console.log(this.submitfilefoImageOcrForm);
     console.log(event);
     const userFile = (event.target as HTMLInputElement).files![0];
     // console.log(file);
-    this.submittedfile.patchValue({
+    this.submitfilefoImageOcrForm.patchValue({
       file : userFile
     });
-    this.submittedfile.get('file')!.updateValueAndValidity();
+    this.submitfilefoImageOcrForm.get('file')!.updateValueAndValidity();
   }
 
 

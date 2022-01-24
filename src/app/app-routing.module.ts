@@ -5,16 +5,19 @@ import { RegisterComponent } from "./users/register/register.component";
 import { LoginComponent } from "./users/login/login.component";
 import { UsersModule } from "./users/users.module";
 import { UserfilesModule } from "./userfiles/userfiles.module";
+import { UserFilesGuard } from "./users/guards/userfiles.guard";
 
 const routes :Routes = [
     {path : '' , component: HomeComponent},
     {path: 'user',
     loadChildren:()=>
-    UsersModule
+    UsersModule,
 },
 {
     path:'userfiles',
-    loadChildren:()=>UserfilesModule
+    loadChildren:()=>UserfilesModule,
+    canActivate: [UserFilesGuard],
+    canLoad: [UserFilesGuard]
 }
 ]
 
