@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilesComponent } from './files/files.component';
-import { FilesRoutingModule } from './users-routing.module';
+import { FilesRoutingModule } from './files-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 

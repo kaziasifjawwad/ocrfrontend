@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { UsersModule } from './users/users.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,8 @@ import { UsersModule } from './users/users.module';
 
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -31,7 +34,7 @@ import { UsersModule } from './users/users.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(
       {
-        timeOut : 2000,
+        timeOut : 5000,
         positionClass : 'toast-top-right',
       }
     ), // ToastrModule added

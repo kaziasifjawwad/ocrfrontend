@@ -1,1 +1,80 @@
-<p>home works!</p>
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="content">
+            <h2 class="text-center rounded" style="background-color: black; color: white">Bangla OCR</h2>
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+
+
+                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr()">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadforImageOcrForm($event,'unregisteredOCRNormalImage')" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+
+                                <!-- <button class="btn btn-success mt-4" type="submit">Submit</button> -->
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">PDF</h5>
+                    <div class="card-body">
+                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr()">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadforImageOcrForm($event,'unregisteredOCRNormalPdf')" class="form-control-file" name="file" accept=".pdf">
+
+                                <!-- <button class="btn btn-success mt-4" type="submit">Submit</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="content">
+            <h2 class="text-center rounded" style="background-color: black; color: white">Advanced Bangla OCR</h2>
+            <div class="container-fluid d-flex justify-content-between">
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <div class="card-body">
+                        <form (ngSubmit) = "submitfilefoImageOcr()">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadforImageOcrForm($event,'unregisteredOCRAdvancedImage')" class="form-control-file"  name="file" accept=".jpg, .jpeg, .png">
+
+                                <!-- <button class="btn btn-success mt-4" type="submit">Submit</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-title d-flex justify-content-center">PDF</h5>
+                    <div class="card-body">
+                        <form (ngSubmit) = "submitfilefoImageOcr()">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadforImageOcrForm($event,'unregisteredOCRAdvancedPdf')" class="form-control-file" name="file" accept=".pdf">
+                                <!-- <button class="btn btn-success mt-4" type="submit">Submit</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<form [formGroup]="submitfilefoImageOcrForm"  (ngSubmit) = "submitfilefoImageOcr()">
+    <div class="d-flex justify-content-center">
+        <input type="email" placeholder="your email please" formControlName="mail">
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success mt-2">submit</button>
+    </div>
+</form>
+
+

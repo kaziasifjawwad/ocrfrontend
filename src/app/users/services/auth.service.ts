@@ -19,7 +19,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(user: UserCredintical): Observable<boolean> {
-    console.log("I hit !!");
     return this.http.post<any>(`${config.apiUrl}/users/api/token/`, user)
       .pipe(
         tap(tokens => this.doLoginUser(user.email, tokens)),
@@ -31,7 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.post<any>(`${config.apiUrl}/logout`, {
+    return this.http.post<any>(`${config.apiUrl}/users/logout/blacklist/`, {
       'refresh': this.getRefreshToken()
     }).pipe(
       tap(() => this.doLogoutUser()),

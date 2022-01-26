@@ -8,7 +8,7 @@
                     <div class="card-body">
 
 
-                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr()">
+                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr('image-only')">
                             <div class="form-group">
                                 <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
 
@@ -20,11 +20,11 @@
                     </div>
                 </div>
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <h5 class="card-title d-flex justify-content-center">PDF</h5>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data">
+                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr('pdf-only')">
                             <div class="form-group">
-                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".pdf">
 
                                 <button class="btn btn-success mt-4" type="submit">Submit</button>
                             </div>
@@ -37,14 +37,14 @@
 
     <div class="col-md-6 col-sm-12 col-lg-6">
         <div class="content">
-            <h2 class="text-center rounded" style="background-color: black; color: white">Bangla OCR</h2>
+            <h2 class="text-center rounded" style="background-color: black; color: white">Advanced Bangla OCR</h2>
             <div class="container-fluid d-flex justify-content-between">
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                     <h5 class="card-title d-flex justify-content-center">Image</h5>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data">
+                        <form (ngSubmit) = "submitfilefoImageOcr('image-special')">
                             <div class="form-group">
-                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file"  name="file" accept=".jpg, .jpeg, .png">
 
                                 <button class="btn btn-success mt-4" type="submit">Submit</button>
                             </div>
@@ -52,12 +52,11 @@
                     </div>
                 </div>
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                    <h5 class="card-title d-flex justify-content-center">Image</h5>
+                    <h5 class="card-title d-flex justify-content-center">PDF</h5>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data">
+                        <form (ngSubmit) = "submitfilefoImageOcr('pdf-special')">
                             <div class="form-group">
-                                <input type="file" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
-
+                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".pdf">
                                 <button class="btn btn-success mt-4" type="submit">Submit</button>
                             </div>
                         </form>
@@ -90,8 +89,8 @@
                         [attr.data-target]="'#' + file.id">
                         Result
                     </button>
-                    <a href="" class="btn btn-success">File</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+                    <button href="" class="btn btn-success" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'image'})">File</button>
+                    <button href="" class="btn btn-danger" (click)="deleteFileById(''+file.id)">Delete</button>
 
                     <div class="modal fade" [attr.id]="file.id" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -104,8 +103,8 @@
                                     {{file.result}}
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="" class="btn btn-primary">Download as docs file</a>
-                                    <a href="" class="btn btn-primary">Download as txt file</a>
+                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'docs'})">Download as docs file</button>
+                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'txt'})">Download as txt file</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

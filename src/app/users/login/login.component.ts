@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         next :(res)=>{
           console.log(res);
           this.toastr.success('Account created');
-          this.router.navigate(['/userfiles/files']);
+          this.router.navigate(['/userfiles/files']).then(()=>window.location.reload());
         },
         error : (error)=>{
           console.log(error.error);

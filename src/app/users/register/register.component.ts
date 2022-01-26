@@ -60,8 +60,8 @@ export class RegisterComponent implements OnInit{
         this.router.navigate(['/login'])
       },
       error:(error)=>{
-        this.toastr.error("mara khaisoooo");
-        this.toastr.error("abar mara khao");
+        this.toastr.error("Something went wrong. please try again");
+        this.loginForm.reset();
       }
       
     });
