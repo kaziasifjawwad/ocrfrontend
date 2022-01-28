@@ -56,11 +56,17 @@ export class RegisterComponent implements OnInit{
     .subscribe(
       {
       next:(res)=>{
+        console.log(res);
         this.toastr.success('Account created');
         this.router.navigate(['/login'])
       },
       error:(error)=>{
-        this.toastr.error("Something went wrong. please try again");
+        for(const key of Object.keys(error.error)){
+          console.log(key,error.error[key]);
+          for(let message of error.error[key]){
+            this.toastr.error(message,key);
+          }
+        }
         this.loginForm.reset();
       }
       

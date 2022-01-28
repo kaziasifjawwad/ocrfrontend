@@ -3,7 +3,7 @@ import { FileService } from '../files.service';
 import { convertedFile, Userfile } from '../models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-files',
   templateUrl: './files.component.html',
@@ -14,11 +14,12 @@ export class FilesComponent implements OnInit {
   userfile !: Userfile;
   fileUploadService!: FileService;
   public convertedFileList: convertedFile[] = [];
-  constructor(private fb: FormBuilder, private fileservice: FileService) {
+  constructor(private fb: FormBuilder, private fileservice: FileService, private spinner : NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
+    
     this.submitfilefoImageOcrForm = this.fb.group(
       {
         file: [null, Validators.required]
@@ -42,22 +43,23 @@ export class FilesComponent implements OnInit {
 
 
   submitfilefoImageOcr(apiEndPoint:string): void {
+    this.spinner.show();
     const formData: any = new FormData();
     formData.append(
       'file', this.submitfilefoImageOcrForm.get('file')?.value
     );
     formData.append("temp", 45);
     console.log(formData);
-    this.fileservice.requestResult({endpoint:apiEndPoint,userfile:formData}).
+    let response = this.fileservice.requestResult({endpoint:apiEndPoint,userfile:formData});
+    this.spinner.hide();
+    response.
       subscribe(
         res => {
           console.log(res)
           if (res) {
-            // console.log("gfsdfljdsflsdjflsd");
             this.getFiles();
           }
         }
-
       );
     this.getFiles();
     console.log
@@ -75,39 +77,30 @@ export class FilesComponent implements OnInit {
     this.submitfilefoImageOcrForm.get('file')!.updateValueAndValidity();
   }
 
-  downloadFile(metaData: { fileId: string, name: string, type: string }) {
-    let fileType = "";
-    if(metaData.type=='image'){
-     
-      metaData.type='download';
-      fileType = "image/jpeg";
-    }
-    else if(metaData.type=='pdf'){
-      console.log("this is a pdf file ");
-      metaData.type='download';
-      fileType = "application/pdf";
-    }
+  downloadFile(metaData: { fileId: string, name: string, type: string , filetype:string}) {
     this.fileservice.downloadAsTxtFile({ resultId: metaData.fileId, type: metaData.type })
 
       .subscribe(x => {
+        console.log(x);
         // It is necessary to create a new blob object with mime-type explicitly set
         // otherwise only Chrome works like it should
-        var newBlob = new Blob([x], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-
-        if (metaData.type == "txt") {
-          newBlob = new Blob([x], { type: "text/plain" });
-        }
-        else if (metaData.type == "download") {
-          newBlob = new Blob([x], { type: fileType });
-        }
-
+        var newBlob = new Blob([x], { type: x['type'] });
+        
 
         // IE doesn't allow using a blob object directly as link href
-        // instead it is necessary to use msSaveOrOpenBlob
-        console.log(newBlob.type);
+        // instead it is necessary to use msSaveOrOpenBlo
+
+        let fileName=metaData.fileId;
+        if(x['type']==='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+          console.log("I hit !!!");
+          fileName=metaData.fileId+'.docx';
+        }
+        else if(metaData.type=='download'){
+          fileName=metaData.name;
+        }
         const nav = (window.navigator as any);
         if (window.navigator && nav.msSaveOrOpenBlob) {
-          nav.msSaveOrOpenBlob(newBlob, metaData.fileId);
+          nav.msSaveOrOpenBlob(newBlob, fileName);
           return;
         }
 
@@ -117,7 +110,7 @@ export class FilesComponent implements OnInit {
 
         var link = document.createElement('a');
         link.href = data;
-        link.download = metaData.fileId;
+        link.download = fileName;
         // this is necessary as link.click() does not work on the latest firefox
         link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
 
@@ -135,7 +128,6 @@ export class FilesComponent implements OnInit {
     subscribe(
       res=>{
         if(res){
-          console.log("hello people");
           this.getFiles();
         }
       }

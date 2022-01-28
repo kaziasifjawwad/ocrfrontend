@@ -7,5 +7,6 @@ export interface convertedFile{
     id: number;
     file:File;
     result:string;
-    type:string
+    type:string;
+    filetype:string
 }

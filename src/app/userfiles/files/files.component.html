@@ -89,7 +89,7 @@
                         [attr.data-target]="'#' + file.id">
                         Result
                     </button>
-                    <button href="" class="btn btn-success" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'image'})">File</button>
+                    <button href="" class="btn btn-success" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'download', filetype:file.filetype})">File</button>
                     <button href="" class="btn btn-danger" (click)="deleteFileById(''+file.id)">Delete</button>
 
                     <div class="modal fade" [attr.id]="file.id" tabindex="-1" role="dialog"
@@ -103,8 +103,8 @@
                                     {{file.result}}
                                 </div>
                                 <div class="modal-footer">
-                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'docs'})">Download as docs file</button>
-                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'txt'})">Download as txt file</button>
+                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'docs', filetype:file.filetype})">Download as docs file</button>
+                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'txt', filetype:file.filetype})">Download as txt file</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

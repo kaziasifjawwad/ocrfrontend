@@ -12,16 +12,18 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
-import { timeout } from 'rxjs';
 import { UsersModule } from './users/users.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavComponent,
+    SpinnerComponent,
+   
 
   ],
   imports: [
@@ -31,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    NgxSpinnerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(
       {

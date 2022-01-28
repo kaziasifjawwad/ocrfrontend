@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
             else if(res.status==3){
               this.router.navigate(['/login'])
             }
-            this.toastr.error(res.message);
+            this.toastr.warning(res.message);
           }
         }
 
