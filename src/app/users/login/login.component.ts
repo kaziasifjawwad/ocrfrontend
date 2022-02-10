@@ -40,11 +40,12 @@ export class LoginComponent implements OnInit {
       {
         next :(res)=>{
           console.log(res);
-          this.toastr.success('Account created');
           this.router.navigate(['/userfiles/files']).then(()=>window.location.reload());
+          this.toastr.success('Successfully log din');
         },
         error : (error)=>{
-          console.log(error.error);
+          console.log("worng email or phone");
+         this.toastr.error("Wrong email or password");
         }
       }
     )

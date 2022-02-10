@@ -20,6 +20,7 @@ export class FilesComponent implements OnInit {
 
   ngOnInit(): void {
     
+    
     this.submitfilefoImageOcrForm = this.fb.group(
       {
         file: [null, Validators.required]

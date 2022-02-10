@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     CommonModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
+    NgHttpLoaderModule.forRoot(),
+
     ToastrModule.forRoot(
       {
         timeOut : 5000,
