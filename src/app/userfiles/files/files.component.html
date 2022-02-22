@@ -8,11 +8,13 @@
                     <div class="card-body">
 
 
-                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr('image-only')">
+                        <form [formGroup]="submitfileforImageNormalOcrForm"
+                            (ngSubmit)="submitfilefoImageOcr('image-only')">
                             <div class="form-group">
-                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
-
-                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                                <input type="file" (change)="uploadFile($event,'image-only')"
+                                    class="form-control-file" name="file" accept=".jpg, .jpeg, .png">
+                                <button class="btn btn-success mt-4" type="submit"
+                                [disabled]="!submitfileforImageNormalOcrForm.valid">Submit</button>
                             </div>
                         </form>
 
@@ -22,11 +24,14 @@
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                     <h5 class="card-title d-flex justify-content-center">PDF</h5>
                     <div class="card-body">
-                        <form [formGroup]="submitfilefoImageOcrForm" (ngSubmit) = "submitfilefoImageOcr('pdf-only')">
-                            <div class="form-group">
-                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".pdf">
 
-                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                        <form [formGroup]="submitfileforPDFNormalOcrForm" (ngSubmit)="submitfilefoImageOcr('pdf-only')">
+                            <div class="form-group">
+                                <input type="file" (change)="uploadFile($event,'pdf-only')" class="form-control-file"
+                                    name="file" accept=".pdf">
+
+                                <button class="btn btn-success mt-4" type="submit"
+                                [disabled]="!submitfileforPDFNormalOcrForm.valid">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -42,11 +47,14 @@
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                     <h5 class="card-title d-flex justify-content-center">Image</h5>
                     <div class="card-body">
-                        <form (ngSubmit) = "submitfilefoImageOcr('image-special')">
+                        <form [formGroup]="submitfileforImageSpecialOcrForm"
+                            (ngSubmit)="submitfilefoImageOcr('image-special')">
                             <div class="form-group">
-                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file"  name="file" accept=".jpg, .jpeg, .png">
+                                <input type="file" (change)="uploadFile($event,'image-special')" class="form-control-file"
+                                    name="file" accept=".jpg, .jpeg, .png">
 
-                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                                <button class="btn btn-success mt-4" type="submit"
+                                [disabled]="!submitfileforImageSpecialOcrForm.valid">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -54,10 +62,14 @@
                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                     <h5 class="card-title d-flex justify-content-center">PDF</h5>
                     <div class="card-body">
-                        <form (ngSubmit) = "submitfilefoImageOcr('pdf-special')">
+
+                        <form [formGroup]="submitfileforPDFSpecialOcrForm"
+                            (ngSubmit)="submitfilefoImageOcr('pdf-special')">
                             <div class="form-group">
-                                <input type="file" (change)="uploadforImageOcrForm($event)" class="form-control-file" name="file" accept=".pdf">
-                                <button class="btn btn-success mt-4" type="submit">Submit</button>
+                                <input type="file" (change)="uploadFile($event,'pdf-special')" class="form-control-file"
+                                    name="file" accept=".pdf">
+                                <button class="btn btn-success mt-4" type="submit"
+                                [disabled]="!submitfileforPDFSpecialOcrForm.valid">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -89,7 +101,8 @@
                         [attr.data-target]="'#' + file.id">
                         Result
                     </button>
-                    <button href="" class="btn btn-success" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'download', filetype:file.filetype})">File</button>
+                    <button href="" class="btn btn-success"
+                        (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'download', filetype:file.filetype})">File</button>
                     <button href="" class="btn btn-danger" (click)="deleteFileById(''+file.id)">Delete</button>
 
                     <div class="modal fade" [attr.id]="file.id" tabindex="-1" role="dialog"
@@ -103,8 +116,12 @@
                                     {{file.result}}
                                 </div>
                                 <div class="modal-footer">
-                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'docs', filetype:file.filetype})">Download as docs file</button>
-                                    <button href="" class="btn btn-primary" (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'txt', filetype:file.filetype})">Download as txt file</button>
+                                    <button href="" class="btn btn-primary"
+                                        (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'docs', filetype:file.filetype})">Download
+                                        as docs file</button>
+                                    <button href="" class="btn btn-primary"
+                                        (click)="downloadFile({fileId : ''+file.id , name : ''+file.name , type : 'txt', filetype:file.filetype})">Download
+                                        as txt file</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   submitfilefoImageOcrForm!: FormGroup;
   apiEndPoint!:string;
+  event?:any;
 
 
   constructor(private fileservice:FileService, 
@@ -56,10 +57,16 @@ export class HomeComponent implements OnInit {
         }
 
       );
-    console.log
+      (this.event.target as HTMLInputElement).value="";
+      this.submitfilefoImageOcrForm.reset();
+      console.log("ddd");
   }
 
   uploadforImageOcrForm(event: any,apiEndPoint:string) {
+    if(this.event!=undefined){
+      (this.event.target as HTMLInputElement).value="";
+    }
+    this.event =event;
     this.apiEndPoint = apiEndPoint;
     const userFile = (event.target as HTMLInputElement).files![0];
     // console.log(file);
@@ -67,6 +74,7 @@ export class HomeComponent implements OnInit {
       file: userFile
     });
     this.submitfilefoImageOcrForm.get('file')!.updateValueAndValidity();
+    
   }
 
   clearFile(){

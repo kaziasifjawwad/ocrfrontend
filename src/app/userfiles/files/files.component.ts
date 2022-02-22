@@ -10,22 +10,42 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./files.component.css']
 })
 export class FilesComponent implements OnInit {
-  submitfilefoImageOcrForm!: FormGroup;
+  event!: any;
+  submitfileforImageNormalOcrForm!: FormGroup;
+  submitfileforPDFNormalOcrForm!: FormGroup;
+  submitfileforImageSpecialOcrForm!: FormGroup;
+  submitfileforPDFSpecialOcrForm!: FormGroup;
+
+
   userfile !: Userfile;
   fileUploadService!: FileService;
   public convertedFileList: convertedFile[] = [];
-  constructor(private fb: FormBuilder, private fileservice: FileService, private spinner : NgxSpinnerService) {
+  constructor(private fb: FormBuilder, private fileservice: FileService, private spinner: NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
-    
-    
-    this.submitfilefoImageOcrForm = this.fb.group(
+    this.submitfileforImageNormalOcrForm = this.fb.group(
       {
         file: [null, Validators.required]
       }
     );
+    this.submitfileforPDFNormalOcrForm = this.fb.group(
+      {
+        file: [null, Validators.required]
+      }
+    );
+    this.submitfileforImageSpecialOcrForm = this.fb.group(
+      {
+        file: [null, Validators.required]
+      }
+    );
+    this.submitfileforPDFSpecialOcrForm = this.fb.group(
+      {
+        file: [null, Validators.required]
+      }
+    );
+
     this.getFiles();
   }
 
@@ -43,15 +63,32 @@ export class FilesComponent implements OnInit {
   }
 
 
-  submitfilefoImageOcr(apiEndPoint:string): void {
+  submitfilefoImageOcr(apiEndPoint: string): void {
+    let file = null;
+    if(apiEndPoint=='image-only'){
+      file = this.submitfileforImageNormalOcrForm;
+    }
+
+    else if(apiEndPoint=='pdf-only'){
+      file =  this.submitfileforPDFNormalOcrForm;
+    }
+
+    else if(apiEndPoint=='image-special'){
+      file =  this.submitfileforImageSpecialOcrForm;
+    }
+
+    else if(apiEndPoint=='pdf-special'){
+      file =  this.submitfileforPDFSpecialOcrForm;
+    }
+
+
     this.spinner.show();
     const formData: any = new FormData();
     formData.append(
-      'file', this.submitfilefoImageOcrForm.get('file')?.value
+      'file', file!.get('file')?.value
     );
-    formData.append("temp", 45);
     console.log(formData);
-    let response = this.fileservice.requestResult({endpoint:apiEndPoint,userfile:formData});
+    let response = this.fileservice.requestResult({ endpoint: apiEndPoint, userfile: formData });
     this.spinner.hide();
     response.
       subscribe(
@@ -59,26 +96,107 @@ export class FilesComponent implements OnInit {
           console.log(res)
           if (res) {
             this.getFiles();
+
           }
         }
       );
     this.getFiles();
-    console.log
+    console.log(this.event);
+    (this.event.target as HTMLInputElement).value="";
+    this.submitfileforImageNormalOcrForm.reset();
+    this.submitfileforImageNormalOcrForm.reset();
+    this.submitfileforPDFNormalOcrForm.reset();
+    this.submitfileforImageSpecialOcrForm.reset();
+    this.submitfileforPDFSpecialOcrForm.reset();
+   
   }
 
 
-  uploadforImageOcrForm(event: any) {
-    console.log(this.submitfilefoImageOcrForm);
-    console.log(event);
+
+  uploadFile(event: any , category:string) {
+    if(this.event!=undefined){
+      (this.event.target as HTMLInputElement).value="";
+    }
+
+    this.event = event;
     const userFile = (event.target as HTMLInputElement).files![0];
-    // console.log(file);
-    this.submitfilefoImageOcrForm.patchValue({
+    let targetApi = null;
+    if(category=='image-only'){
+      targetApi =  this.submitfileforImageNormalOcrForm;
+
+      // this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforPDFNormalOcrForm.reset();
+      this.submitfileforImageSpecialOcrForm.reset();
+      this.submitfileforPDFSpecialOcrForm.reset();
+    }
+    
+    else if(category=='pdf-only'){
+      targetApi =  this.submitfileforPDFNormalOcrForm;
+
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforImageNormalOcrForm.reset();
+      // this.submitfileforPDFNormalOcrForm.reset();
+      this.submitfileforImageSpecialOcrForm.reset();
+      this.submitfileforPDFSpecialOcrForm.reset();
+    }
+    else if(category=='image-special'){
+      targetApi =  this.submitfileforImageSpecialOcrForm;
+
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforPDFNormalOcrForm.reset();
+      // this.submitfileforImageSpecialOcrForm.reset();
+      this.submitfileforPDFSpecialOcrForm.reset();
+    }
+    else if(category=='pdf-special'){
+      targetApi =  this.submitfileforPDFSpecialOcrForm;
+
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforImageNormalOcrForm.reset();
+      this.submitfileforPDFNormalOcrForm.reset();
+      this.submitfileforImageSpecialOcrForm.reset();
+      // this.submitfileforPDFSpecialOcrForm.reset();
+    }
+    
+
+    targetApi?.patchValue({
       file: userFile
     });
-    this.submitfilefoImageOcrForm.get('file')!.updateValueAndValidity();
+    targetApi?.get('file')!.updateValueAndValidity();
   }
 
-  downloadFile(metaData: { fileId: string, name: string, type: string , filetype:string}) {
+
+  // uploadforImageOcrForm(event: any) {
+  //   console.log("hiiiiiiiiiiiiiiiiiii");
+  //   this.event = event;
+  //   console.log(this.event);
+  //   const userFile = (event.target as HTMLInputElement).files![0];
+  //   this.submitfilefoImageOcrForm.patchValue({
+  //     file: userFile
+  //   });
+  //   this.submitfilefoImageOcrForm.get('file')!.updateValueAndValidity();
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  downloadFile(metaData: { fileId: string, name: string, type: string, filetype: string }) {
     this.fileservice.downloadAsTxtFile({ resultId: metaData.fileId, type: metaData.type })
 
       .subscribe(x => {
@@ -86,18 +204,18 @@ export class FilesComponent implements OnInit {
         // It is necessary to create a new blob object with mime-type explicitly set
         // otherwise only Chrome works like it should
         var newBlob = new Blob([x], { type: x['type'] });
-        
+
 
         // IE doesn't allow using a blob object directly as link href
         // instead it is necessary to use msSaveOrOpenBlo
 
-        let fileName=metaData.fileId;
-        if(x['type']==='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+        let fileName = metaData.fileId;
+        if (x['type'] === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
           console.log("I hit !!!");
-          fileName=metaData.fileId+'.docx';
+          fileName = metaData.fileId + '.docx';
         }
-        else if(metaData.type=='download'){
-          fileName=metaData.name;
+        else if (metaData.type == 'download') {
+          fileName = metaData.name;
         }
         const nav = (window.navigator as any);
         if (window.navigator && nav.msSaveOrOpenBlob) {
@@ -123,16 +241,16 @@ export class FilesComponent implements OnInit {
       });
   }
 
-  deleteFileById(fileId:string){
+  deleteFileById(fileId: string) {
     console.log(fileId);
     this.fileservice.deleteById(fileId).
-    subscribe(
-      res=>{
-        if(res){
-          this.getFiles();
+      subscribe(
+        res => {
+          if (res) {
+            this.getFiles();
+          }
         }
-      }
-    )
+      )
   }
 
 
